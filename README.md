@@ -1,261 +1,131 @@
-# Mods
+# ChatGPT for Windows
 
-<p>
-    <img src="https://github.com/charmbracelet/mods/assets/25087/5442bf46-b908-47af-bf4e-60f7c38951c4" width="630" alt="Mods product art and type treatment"/>
-    <br>
-    <a href="https://github.com/charmbracelet/mods/releases"><img src="https://img.shields.io/github/release/charmbracelet/mods.svg" alt="Latest Release"></a>
-    <a href="https://github.com/charmbracelet/mods/actions"><img src="https://github.com/charmbracelet/mods/workflows/build/badge.svg" alt="Build Status"></a>
-</p>
+Desktop ChatGPT application for Windows operating system.
 
-AI for the command line, built for pipelines.
+Large Language Model based AI is useful for quick access to artificial intelligence capabilities directly from your desktop. ChatGPT for Windows is a tool to bring AI conversations to your native Windows environment without the need for browser-based interactions.
 
-<p><img src="https://vhs.charm.sh/vhs-5Uyj0U6Hlqi1LVIIRyYKM5.gif" width="900" alt="a GIF of mods running"></p>
-
-Large Language Models (LLM) based AI is useful to ingest command output and
-format results in Markdown, JSON, and other text based formats. Mods is a
-tool to add a sprinkle of AI in your command line and make your pipelines
-artificially intelligent.
-
-It works great with LLMs running locally through [LocalAI]. You can also use
-[OpenAI], [Cohere], [Groq], or [Azure OpenAI].
-
-[LocalAI]: https://github.com/go-skynet/LocalAI
-[OpenAI]: https://platform.openai.com/account/api-keys
-[Cohere]: https://dashboard.cohere.com/api-keys
-[Groq]: https://console.groq.com/keys
-[Azure OpenAI]: https://azure.microsoft.com/en-us/products/cognitive-services/openai-service
+It works great with various AI providers including OpenAI, and allows seamless switching between different models for optimal results.
 
 ### Installation
 
 Use a package manager:
 
 ```bash
-# macOS or Linux
-brew install charmbracelet/tap/mods
-
 # Windows (with Winget)
-winget install charmbracelet.mods
+winget install ChatGPT.Desktop
 
-# Arch Linux (btw)
-yay -S mods
+# Windows (with Chocolatey)
+choco install chatgpt-desktop
 
-# Nix
-nix-shell -p mods
+# Scoop
+scoop install chatgpt-desktop
 ```
-
-<details>
-<summary>Debian/Ubuntu</summary>
-
-```bash
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-sudo apt update && sudo apt install mods
-```
-
-</details>
-
-<details>
-<summary>Fedora/RHEL</summary>
-
-```bash
-echo '[charm]
-name=Charm
-baseurl=https://repo.charm.sh/yum/
-enabled=1
-gpgcheck=1
-gpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo
-sudo yum install mods
-```
-
-</details>
 
 Or, download it:
 
-- [Packages][releases] are available in Debian and RPM formats
-- [Binaries][releases] are available for Linux, macOS, and Windows
+- Last release are available in MSI and portable formats
+- Binaries are available for Windows x64 and ARM64
 
-[releases]: https://github.com/charmbracelet/mods/releases
-
-Or, just install it with `go`:
-
-```sh
-go install github.com/charmbracelet/mods@latest
-```
-
-<details>
-<summary>Shell Completions</summary>
-
-All the packages and archives come with pre-generated completion files for Bash,
-ZSH, Fish, and PowerShell.
-
-If you built it from source, you can generate them with:
+System Requirements:
 
 ```bash
-mods completion bash -h
-mods completion zsh -h
-mods completion fish -h
-mods completion powershell -h
+# Windows 10/11 (64-bit)
+# .NET Framework 4.7.2 or higher
+# 512 MB free disk space
+# Internet connection
 ```
-
-If you use a package (like Homebrew, Debs, etc), the completions should be set
-up automatically, given your shell is configured properly.
-
-</details>
 
 ## What Can It Do?
 
-Mods works by reading standard in and prefacing it with a prompt supplied in
-the `mods` arguments. It sends the input text to an LLM and prints out the
-result, optionally asking the LLM to format the response as Markdown. This
-gives you a way to "question" the output of a command. Mods will also work on
-standard in or an argument supplied prompt individually.
+ChatGPT for Windows works as a native desktop client that provides seamless access to AI conversations. You can send text prompts and receive responses in real-time, with support for conversation history and customizable parameters.
 
-Be sure to check out the [examples](examples.md) and a list of all the
-[features](features.md).
-
-Mods works with OpenAI compatible endpoints. By default, Mods is configured to
-support OpenAI's official API and a LocalAI installation running on port 8080.
-You can configure additional endpoints in your settings file by running
-`mods --settings`.
+The application offers quick access to ChatGPT, conversation management, model selection, and export capabilities in various formats including Markdown, plain text, and JSON.
 
 ## Saved Conversations
 
-Conversations are saved locally by default. Each conversation has a SHA-1
-identifier and a title (like `git`!).
+Conversations are saved locally by default. Each conversation has a unique identifier and title for easy navigation and reference.
 
-<p>
-  <img src="https://vhs.charm.sh/vhs-6MMscpZwgzohYYMfTrHErF.gif" width="900" alt="a GIF listing and showing saved conversations.">
-</p>
-
-Check the [`./features.md`](./features.md) for more details.
+Conversation history allows you to continue previous discussions, review past interactions, and organize your AI conversations efficiently.
 
 ## Usage
 
-- `-m`, `--model`: Specify Large Language Model to use
-- `-M`, `--ask-model`: Ask which model to use via interactive prompt
-- `-f`, `--format`: Ask the LLM to format the response in a given format
-- `--format-as`: Specify the format for the output (used with `--format`)
-- `-P`, `--prompt` Include the prompt from the arguments and stdin, truncate stdin to specified number of lines
-- `-p`, `--prompt-args`: Include the prompt from the arguments in the response
-- `-q`, `--quiet`: Only output errors to standard err
-- `-r`, `--raw`: Print raw response without syntax highlighting
-- `--settings`: Open settings
-- `-x`, `--http-proxy`: Use HTTP proxy to connect to the API endpoints
-- `--max-retries`: Maximum number of retries
-- `--max-tokens`: Specify maximum tokens with which to respond
-- `--no-limit`: Do not limit the response tokens
-- `--role`: Specify the role to use (See [custom roles](#custom-roles))
-- `--word-wrap`: Wrap output at width (defaults to 80)
-- `--reset-settings`: Restore settings to default
-- `--theme`: Theme to use in the forms; valid choices are: `charm`, `catppuccin`, `dracula`, and `base16`
-- `--status-text`: Text to show while generating
+- `-m`, `--model`: Specify AI model to use
+- `-t`, `--temperature`: Set response creativity level  
+- `-s`, `--system`: Set system prompt for the conversation
+- `-f`, `--format`: Format response output
+- `--max-tokens`: Specify maximum response length
+- `--save`: Save conversation to history
+- `--export`: Export conversation to file
+- `--theme`: Set application theme (light, dark, auto)
+- `--settings`: Open application settings
 
 #### Conversations
 
-- `-t`, `--title`: Set the title for the conversation.
-- `-l`, `--list`: List saved conversations.
-- `-c`, `--continue`: Continue from last response or specific title or SHA-1.
-- `-C`, `--continue-last`: Continue the last conversation.
-- `-s`, `--show`: Show saved conversation for the given title or SHA-1
-- `-S`, `--show-last`: Show previous conversation
-- `--delete-older-than=<duration>`: Deletes conversations older than given duration (`10d`, `1mo`).
-- `--delete`: Deletes the saved conversations for the given titles or SHA-1s
-- `--no-cache`: Do not save conversations
-
-#### MCP
-
-- `--mcp-list`: List all available MCP servers
-- `--mcp-list-tools`: List all available tools from enabled MCP servers
-- `--mcp-disable`: Disable specific MCP servers
+- `--new`: Start new conversation
+- `--list`: List saved conversations
+- `--continue`: Continue specific conversation
+- `--delete`: Delete saved conversations
+- `--clear`: Clear conversation history
 
 #### Advanced
 
-- `--fanciness`: Level of fanciness
-- `--temp`: Sampling temperature
-- `--topp`: Top P value
-- `--topk`: Top K value
+- `--api-key`: Set API key for AI provider
+- `--endpoint`: Custom API endpoint
+- `--proxy`: Use HTTP proxy for connections
+- `--timeout`: Set request timeout
+- `--retries`: Maximum number of retries
 
-## Custom Roles
+## Custom Prompts
 
-Roles allow you to set system prompts. Here is an example of a `shell` role:
+You can create custom system prompts for different use cases:
 
 ```yaml
-roles:
-  shell:
-    - you are a shell expert
-    - you do not explain anything
-    - you simply output one liners to solve the problems you're asked
-    - you do not provide any explanation whatsoever, ONLY the command
+prompts:
+  coding:
+    - you are a coding assistant
+    - provide clean, efficient code solutions
+    - include brief explanations when helpful
+  writing:
+    - you are a writing assistant
+    - help improve text clarity and style
+    - maintain the original tone and intent
 ```
 
-Then, use the custom role in `mods`:
-
-```sh
-mods --role shell list files in the current directory
-```
+Then, use custom prompts in the application through the settings panel or command line interface.
 
 ## Setup
 
-### Open AI
+### OpenAI
 
-Mods uses GPT-4 by default. It will fall back to GPT-3.5 Turbo.
+The application uses GPT-4 by default with fallback to GPT-3.5 Turbo.
 
-Set the `OPENAI_API_KEY` environment variable. If you don't have one yet, you
-can grab it the [OpenAI website](https://platform.openai.com/account/api-keys).
+Set the `OPENAI_API_KEY` environment variable or configure it through the settings panel. You can get your API key from the OpenAI platform.
 
-Alternatively, set the [`AZURE_OPENAI_KEY`] environment variable to use Azure
-OpenAI. Grab a key from [Azure](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service).
+### Other Providers
 
-### Cohere
+The application supports multiple AI providers through compatible API endpoints. Configure your preferred provider through the settings panel with the appropriate API key and endpoint URL.
 
-Cohere provides enterprise optimized models.
+## Features
 
-Set the `COHERE_API_KEY` environment variable. If you don't have one yet, you can
-get it from the [Cohere dashboard](https://dashboard.cohere.com/api-keys).
-
-### Local AI
-
-Local AI allows you to run models locally. Mods works with the GPT4ALL-J model
-as setup in [this tutorial](https://github.com/go-skynet/LocalAI#example-use-gpt4all-j-model).
-
-### Groq
-
-Groq provides models powered by their LPU inference engine.
-
-Set the `GROQ_API_KEY` environment variable. If you don't have one yet, you can
-get it from the [Groq console](https://console.groq.com/keys).
-
-### Gemini
-
-Mods supports using Gemini models from Google.
-
-Set the `GOOGLE_API_KEY` enviroment variable. If you don't have one yet,
-you can get it from the [Google AI Studio](https://aistudio.google.com/apikey).
+- Native Windows application with system tray integration
+- Multiple AI provider support
+- Conversation history and management
+- Export conversations in multiple formats
+- Customizable themes and appearance
+- Keyboard shortcuts for quick access
+- Offline conversation storage
+- Auto-save functionality
+- Search through conversation history
+- Custom system prompts and templates
 
 ## Contributing
 
-See [contributing][contribute].
-
-[contribute]: https://github.com/charmbracelet/mods/contribute
-
-## Whatcha Think?
-
-We’d love to hear your thoughts on this project. Feel free to drop us a note.
-
-- [Twitter](https://twitter.com/charmcli)
-- [The Fediverse](https://mastodon.social/@charmcli)
-- [Discord](https://charm.sh/chat)
+Contributions are welcome! Please read the contributing guidelines before submitting pull requests.
 
 ## License
 
-[MIT](https://github.com/charmbracelet/mods/raw/main/LICENSE)
+MIT License - see LICENSE file for details.
 
 ---
 
-Part of [Charm](https://charm.sh).
-
-<a href="https://charm.sh/"><img alt="The Charm logo" width="400" src="https://stuff.charm.sh/charm-badge.jpg" /></a>
-
-<!--prettier-ignore-->
-Charm热爱开源 • Charm loves open source
+Made with ❤️ for Windows users.
